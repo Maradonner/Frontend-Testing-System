@@ -1,0 +1,19 @@
+.topButton{
+  width: 300px;
+  height: 96px;
+}
+
+.myOption{
+  min-width: 300px;
+}
+
+.myOption .delete-btn {
+  color: #f44336;
+  cursor: pointer;
+}
+
+
+
+
+
+

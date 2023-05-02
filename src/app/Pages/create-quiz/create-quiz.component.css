@@ -1,0 +1,170 @@
+.correct {
+  background: #47ff19;
+}
+
+.topButton {
+  width: 300px;
+  height: 96px;
+}
+
+.myOption {
+  min-width: 225px;
+}
+
+.dropzone {
+  background: #4054b4;
+  border: 2px dashed #fff;
+  height: 450px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.dropzone button {
+  padding: 10px 25px;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: #fff;
+  color: #5256ad;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dropzone header {
+  font-size: 30px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.dropzone span {
+  font-size: 25px;
+  font-weight: 500;
+  color: #fff;
+  margin: 10px 0 15px 0;
+}
+
+.dropzone .fileInput {
+  margin-top: -10px;
+  margin-left: -130px;
+  cursor: pointer;
+  height: 40px;
+  width: 155px;
+  opacity: 0;
+  position: absolute;
+  z-index: 2;
+}
+
+.dropzone .active {
+  border: 2px solid #fff;
+}
+
+.dropzone .icon {
+  border: 2px solid #fff;
+}
+
+.dropzone img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.fileover {
+  color: black;
+  background: black;
+  animation-iteration-count: infinite;
+}
+
+mat-grid-tile {
+  background: #131313;
+  color: white;
+  font-size: 18px;
+  font-family: "Arial", serif;
+}
+
+form {
+  margin: 50px auto;
+  text-align: center;
+}
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+
+
+h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #262626;
+  margin-bottom: 40px;
+}
+
+.form-group label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #262626;
+}
+
+.form-control {
+  box-shadow: none;
+  font-size: 1rem;
+  color: #262626;
+  padding: 0;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-row .form-group {
+  margin-bottom: 20px;
+}
+
+.form-row .form-group:first-child {
+  margin-right: 20px;
+}
+
+.card {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.card-header {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #262626;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-bottom: 1px solid #C9C9C9;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+input[type="text"]{
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}

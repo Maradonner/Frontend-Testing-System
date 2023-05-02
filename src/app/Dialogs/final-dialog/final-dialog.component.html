@@ -1,0 +1,52 @@
+<div class="end-quiz-dialog">
+  <h1 mat-dialog-title>Игра закончена</h1>
+  <mat-dialog-content>
+    <p>У вас не осталось попыток.</p>
+    <p>Ваш счёт is X out of Y</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <!--
+    <button mat-button [mat-dialog-close]="true">OK</button>
+    -->
+    <button (click)="onConfirm()" mat-fab extended color="primary">
+      <mat-icon>favorite</mat-icon>
+      Играть ещё раз
+    </button>
+    <button (click)="onCancel()" mat-fab extended color="primary">
+      Другие квизы
+    </button>
+  </mat-dialog-actions>
+</div>
+
+<!--
+<mat-dialog-content class="dialog">
+  <mat-grid-list cols="4" rowHeight="79px">
+
+    <mat-grid-tile [colspan]="4"
+                   [rowspan]="1">
+      <p>У вас не осталось попыток. Ваш счёт: {{tmpPoints}}</p>
+    </mat-grid-tile>
+
+
+    <mat-grid-tile [colspan]="2"
+                   [rowspan]="1">
+      <mat-dialog-actions>
+        <button (click)="onConfirm()" mat-fab extended color="primary">
+          <mat-icon>favorite</mat-icon>
+          Играть ещё раз
+        </button>
+      </mat-dialog-actions>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="2"
+                   [rowspan]="1">
+      <mat-dialog-actions>
+        <button (click)="onCancel()" mat-fab extended color="primary">
+          Результаты игры
+        </button>
+      </mat-dialog-actions>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+</mat-dialog-content>
+-->

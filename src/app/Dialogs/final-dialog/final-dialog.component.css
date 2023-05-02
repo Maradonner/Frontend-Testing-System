@@ -1,0 +1,26 @@
+.end-quiz-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.end-quiz-dialog h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.end-quiz-dialog p {
+  font-size: 18px;
+  margin-bottom: 2rem;
+}
+
+.end-quiz-dialog button {
+  padding: 1rem 2rem;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}

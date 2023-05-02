@@ -1,0 +1,199 @@
+
+
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="My Profile">
+
+    <div class="container mt-5">
+      <!-- Profile content -->
+      <mat-card class="mt-3">
+        <mat-card-header>
+          <mat-card-title>My Profile IS SUPER</mat-card-title>
+        </mat-card-header>
+
+
+        <mat-card-content>
+          <div class="container mt-5">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card">
+                  <img src="path/to/profile-picture.jpg" class="card-img-top" alt="Profile Picture">
+                  <div class="card-body">
+                    <h5 class="card-title">John Doe</h5>
+                    <p class="card-text">Student at XYZ University</p>
+                    <a href="#" class="btn btn-primary">Edit Profile</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">User Information</h5>
+                    <form>
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail">Email</label>
+                          <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="john@example.com" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputUsername">Username</label>
+                          <input type="text" class="form-control" id="inputUsername" placeholder="Username" value="john.doe" readonly>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" value="1234 Main St, Apt 5B" readonly>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-4">
+                          <label for="inputCity">City</label>
+                          <input type="text" class="form-control" id="inputCity" value="New York" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="inputState">State</label>
+                          <input type="text" class="form-control" id="inputState" value="NY" readonly>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Save Changes</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+
+  </mat-tab>
+  <mat-tab label="My Tests">
+
+    <div class="container mt-5">
+      <!-- Tests content -->
+      <mat-card class="mt-3">
+
+        <mat-card-header>
+          <mat-card-title>My Tests</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+
+
+          <div>
+            <div class="row">
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 outer" *ngFor="let quiz of quizzes">
+                <div class="card text-center shadow-sm mb-4">
+                  <div class="imgCard">
+                    <img ngSrc="{{quiz.pictureUrl.split('/')[6] + '/' + quiz.pictureUrl.split('/')[7]}}"
+                         width="500"
+                         height="500"
+                         class="card-img-top" alt="Quiz Image"
+                         >
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title text-primary">{{quiz.title}}</h5>
+                    <p class="card-text">
+                      {{quiz.description}}
+                      ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+                      ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+                      ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+                    </p>
+                    <p class="card-text">
+                      <small class="text-muted">Lives: <span class="livesCount text-primary">3</span> | Question Time: <span
+                        class="questionTime text-primary">10 seconds</span></small>
+                    </p>
+                    <hr>
+
+                    <div class="centerTupich">
+                      <div class="centerItems" matTooltip="lives Count">
+                        <mat-icon>favorite</mat-icon>
+                        <div>X{{quiz.livesCount}}</div>
+                      </div>
+                      <div class="centerItems" matTooltip="Time allocated on 1 question">
+                        <mat-icon>schedule</mat-icon>
+                        <div>{{quiz.questionTime}}</div>
+                      </div>
+                      <div class="centerItems" matTooltip="Accumulate time">
+                        <mat-icon>more_time</mat-icon>
+                        <div>{{quiz.accumulateTime}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!quizzes">Server is not working!</div>
+
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+
+  <mat-tab label="History of Passed Tests">
+    <div class="container mt-5">
+
+      <!-- History content -->
+      <mat-card class="mt-3">
+        <mat-card-header>
+          <mat-card-title>History of Passed Tests</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+          <table [dataSource]="dataSource" mat-table>
+
+            <ng-container matColumnDef="index">
+              <th *matHeaderCellDef mat-header-cell></th>
+              <td *matCellDef="let index = index;" mat-cell>
+                {{index + 1}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="id">
+              <th *matHeaderCellDef mat-header-cell> Id</th>
+              <td *matCellDef="let user" mat-cell>
+                {{user.id}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="title">
+              <th *matHeaderCellDef mat-header-cell> Title</th>
+              <td *matCellDef="let user" mat-cell>
+                {{user.username}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="startTime">
+              <th *matHeaderCellDef mat-header-cell> Start Time</th>
+              <td *matCellDef="let user" mat-cell>
+                {{user.name}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="score">
+              <th mat-header-cell *matHeaderCellDef>Score</th>
+              <td mat-cell *matCellDef="let user"></td>
+            </ng-container>
+            <ng-container matColumnDef="operations">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td class="col-operations" mat-cell *matCellDef="let user">
+              </td>
+            </ng-container>
+            <tr *matHeaderRowDef="displayedColumns;" mat-header-row></tr>
+            <tr *matRowDef="let row; columns:displayedColumns;" mat-row></tr>
+          </table>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+
+
+
+
+

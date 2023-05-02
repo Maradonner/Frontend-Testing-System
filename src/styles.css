@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.sidebar-wrapper{
+  overflow: hidden !important;
+}
+
+.sidebar{
+  z-index: 1 !important;
+}
+
+.navbar.navbar-absolute{
+  z-index: 1 !important;
+}
+
+html{
+  background-color: #f4f3ef;
+}
+
+.mdc-dialog__surface{
+  overflow: hidden !important;
+}
+
+mat-nav-list {
+  min-width: 260px !important;
+  width: 60vw !important;
+  max-width: 260px !important;
+}
+
+
+.mat-mdc-snack-bar-container {
+   --mdc-snackbar-container-color: white;
+   --mat-mdc-snack-bar-button-color: white;
+   --mdc-snackbar-supporting-text-color: white;
+}

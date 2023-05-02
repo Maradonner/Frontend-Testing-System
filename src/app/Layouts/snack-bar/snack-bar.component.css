@@ -1,0 +1,31 @@
+/* Snack Bar Container */
+#custom-snack-bar-container {
+  background-color: white;
+
+}
+
+/* Snack Bar Row */
+.custom-snack-bar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Snack Bar Message */
+.example-snack-bar-message {
+  font-size: 14px;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Action Button */
+#action-button {
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Progress Bar */
+#progress-bar {
+  height: 4px;
+  border-radius: 2px;
+}

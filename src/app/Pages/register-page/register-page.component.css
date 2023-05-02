@@ -1,0 +1,95 @@
+body {
+  background-color: #F1F1F1;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 500px;
+}
+
+h2 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+form {
+  background-color: #FFF;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #E5E5E5;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.form-check-input {
+  margin-top: 10px;
+}
+
+.form-check-label {
+  font-size: 14px;
+  color: #333;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFF;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #1E88E5;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.form-footer a {
+  color: #2196F3;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  color: #1E88E5;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+input[type="password"] {
+  padding-right: 40px;
+  position: relative;
+}

@@ -1,0 +1,57 @@
+<mat-dialog-content class="dialog">
+  <mat-progress-bar class="progress" mode="determinate" [value]="progressValue"></mat-progress-bar>
+  <div>{{time}}</div>
+  <mat-grid-list cols="4" rowHeight="79px">
+    <mat-grid-tile
+      [colspan]="4"
+      [rowspan]="1">
+      <button *ngFor=" let item of [].constructor(tmpLivesLeft); let i = index"
+              mat-fab matTooltip="Your Life" color="primary" aria-label="Your Life">
+        <mat-icon>favorite</mat-icon>
+      </button>
+
+      <button *ngFor=" let item of [].constructor(3 - tmpLivesLeft); let i = index"
+              mat-fab matTooltip="Your broken lifes" color="accent" aria-label="Your broken life">
+        <mat-icon>favorite</mat-icon>
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="tmpLivesLeft == 2"
+                   [colspan]="4"
+                   [rowspan]="1">
+      <p>А вот и нет! Это «{{correctOption}}»
+        Осталось три попытки — ещё не всё потеряно</p>
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="tmpLivesLeft == 1"
+                   [colspan]="4"
+                   [rowspan]="1">
+      <p>А вот и нет! Это «{{correctOption}}»
+        У вас осталась еще две попытки.</p>
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="tmpLivesLeft == 0"
+                   [colspan]="4"
+                   [rowspan]="1">
+      <p> А вот и нет! Это «{{correctOption}}»
+        У вас осталась всего одна попытка. Используйте этот шанс по максимуму!</p>
+    </mat-grid-tile>
+
+    <mat-grid-tile *ngIf="tmpLivesLeft>=0"
+                   [colspan]="3"
+                   [rowspan]="1">
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="tmpLivesLeft>=0"
+                   [colspan]="1"
+                   [rowspan]="1">
+      <mat-dialog-actions>
+        <button (click)="onCancel()" mat-fab extended color="primary">
+          Close
+        </button>
+      </mat-dialog-actions>
+    </mat-grid-tile>
+
+
+  </mat-grid-list>
+
+
+</mat-dialog-content>
+
+

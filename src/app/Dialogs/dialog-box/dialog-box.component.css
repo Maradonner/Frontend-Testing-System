@@ -1,0 +1,14 @@
+.dialog {
+  font-size: 18px;
+  overflow: hidden !important;
+}
+
+
+.mat-dialog-content {
+  overflow: hidden !important;
+}
+
+.mat-dialog-container {
+  overflow: hidden !important;
+}
+

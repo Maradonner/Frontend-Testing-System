@@ -1,0 +1,66 @@
+<div class="center-element" *ngIf="data">
+  <mat-card class="example-card">
+    <div class="handler">
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" [style.width.%]="progressValue" [attr.aria-valuenow]="progressValue"
+           aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <!--
+    <div>
+      <mat-progress-bar class="progress" mode="determinate"
+                        [value]="progressValue"></mat-progress-bar>
+    </div>
+    -->
+    <div>
+      <mat-card-title>{{data.question?.title}}</mat-card-title>
+    </div>
+    <img height="450" width="600" [src]="data.question?.pictureUrl">
+
+    <mat-grid-list cols="2" rowHeight="2:1">
+
+      <ng-container *ngIf="data.question?.options.length % 2 === 0">
+        <ng-container *ngFor="let option of data.question?.options" [class.disabled]="progressValue<=0">
+          <mat-grid-tile [class.correct]="(select?.id==option.id) &&  select.isCorrect"
+                         (click)="onSelectOption(option)"
+                         [class.incorrect]="(select?.id==option.id) &&  !select.isCorrect">
+            {{option.title}}
+          </mat-grid-tile>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="data.question?.options.length % 2 === 1">
+        <ng-container *ngFor="let option of data.question?.options; let i = index">
+
+          <mat-grid-tile *ngIf="i < data.question?.options.length-1;"
+                         [class.correct]="(select?.id==option.id) &&  select.isCorrect"
+                         [class.incorrect]="(select?.id==option.id) &&  !select.isCorrect"
+                         (click)="onSelectOption(option)"
+                         class="option"
+                         [colspan]="1"
+                         [rowspan]="1">
+            {{option.title}}
+          </mat-grid-tile>
+
+          <mat-grid-tile *ngIf="i === data.question?.options.length-1"
+                         [class.correct]="(select?.id==option.id) &&  select.isCorrect"
+                         [class.incorrect]="(select?.id==option.id) &&  !select.isCorrect"
+                         (click)="onSelectOption(option)"
+                         [colspan]="2"
+                         [rowspan]="1">
+            {{option.title}}
+          </mat-grid-tile>
+
+        </ng-container>
+      </ng-container>
+
+    </mat-grid-list>
+
+  </mat-card>
+</div>
+<div *ngIf="!data">Server is not working!</div>
+
+<!---
+let item of [].constructor(data?.livesLeft); let i = index
+-->

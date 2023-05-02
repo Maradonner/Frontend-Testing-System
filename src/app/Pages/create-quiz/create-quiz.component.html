@@ -1,0 +1,240 @@
+<div class="container" style="max-width: 800px">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Create Quiz</h1>
+    </div>
+    <div class="col-md-6 text-right">
+      <button (click)="addQuiz()"
+              type="submit" class="btn btn-primary btn-lg">Save Quiz
+      </button>
+    </div>
+  </div>
+
+
+  <form [formGroup]="form">
+
+    <div class="form-group">
+      <label for="title">Quiz Title</label>
+      <input type="text" class="form-control"
+             matInput
+             formControlName="title"
+             [class.is-valid]="form.get('title').valid"
+             [class.is-invalid]="form.get('title').touched && form.get('title').invalid"
+             id="title" required>
+      <div class="invalid-feedback">
+        Please provide a valid Quiz Title.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="pictureUrl">Picture Url</label>
+      <div class="dropzone" appDnd (fileDropped)="onFileDropped($event)">
+        <header>Drag & Drop to Upload File</header>
+        <span>OR</span>
+        <input class="fileInput" type="file" #fileDropRef multiple
+               (change)="fileBrowseHandler($event)"/>
+        <button>Browse File</button>
+
+        <img id="preview"
+             [src]="tmpLink"
+             alt="Photo of a Shiba Inu"
+             style="max-width: 350px; max-height: 300px; margin-top: 10px;">
+      </div>
+      <button (click)="onUpload()" mat-raised-button color="primary">Accent</button>
+    </div>
+
+    <div class="form-group">
+      <label for="pictureUrl">Picture Url</label>
+      <input type="text" class="form-control"
+             matInput
+             formControlName="pictureUrl"
+             [class.is-valid]="form.get('pictureUrl').valid"
+             [class.is-invalid]="form.get('pictureUrl').touched && form.get('pictureUrl').invalid"
+             id="pictureUrl" required>
+      <div class="invalid-feedback">
+        Please provide a Picture Url.
+      </div>
+    </div>
+
+
+    <div class="form-row" style="display: flex">
+
+      <div class="form-group col-md-4">
+        <label for="questionTime">Question Time (seconds)</label>
+        <input type="text" class="form-control"
+               matInput
+               formControlName="questionTime"
+               [class.is-valid]="form.get('questionTime').valid"
+               [class.is-invalid]="form.get('questionTime').touched && form.get('questionTime').invalid"
+               id="questionTime" required>
+        <div class="invalid-feedback">
+          Please provide a Question Time.
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="questionTime">Lives Count</label>
+        <input type="text" class="form-control"
+               matInput
+               formControlName="livesCount"
+               [class.is-valid]="form.get('livesCount').valid"
+               [class.is-invalid]="form.get('livesCount').touched && form.get('livesCount').invalid"
+               id="livesCount" required>
+        <div class="invalid-feedback">
+          Please provide a Lives Count.
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+      <mat-checkbox formControlName="accumulateTime" class="example-margin">Accumulate Time?</mat-checkbox>
+      </div>
+
+      <!---
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>AccumulateTime</mat-label>
+          <input formControlName="accumulateTime" matInput placeholder="Placeholder">
+          <mat-error *ngIf="form.get('accumulateTime').hasError('required')">
+            AccumulateTime is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      -->
+
+    </div>
+
+
+  </form>
+</div>
+
+
+<div class="logo">
+  <div class="example-button-container">
+    <button (click)="openAddDialog()" mat-fab color="primary" aria-label="Example icon button with a bookmark icon">
+      <mat-icon>add-icon</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- notifications.component.html -->
+
+<div *ngFor="let notification of notifications">
+  <div>
+    <strong>{{ notification.userName }}</strong> created a new quiz:
+    <a [routerLink]="['/quiz', notification.quizId]">{{ notification.quizTitle }}</a>
+  </div>
+</div>
+
+
+<!---
+<form [formGroup]="form">
+  <label for="title111">Quiz Title</label>
+  <mat-form-field appearance="fill">
+    <input formControlName="pictureUrl" id="title111"
+           matInput>
+    <mat-error *ngIf="form.get('pictureUrl').hasError('required')">
+      tmpLink is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>tmpTitle</mat-label>
+    <input formControlName="title" matInput placeholder="Placeholder">
+    <mat-error *ngIf="form.get('title').hasError('required')">
+      tmpTitle is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>tmpQuestionTime</mat-label>
+    <input formControlName="questionTime" matInput placeholder="Placeholder">
+    <mat-error *ngIf="form.get('questionTime').hasError('required')">
+      tmpQuestionTime is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>tmpAccumulateTime</mat-label>
+    <input formControlName="accumulateTime" matInput placeholder="Placeholder">
+    <mat-error *ngIf="form.get('accumulateTime').hasError('required')">
+      tmpAccumulateTime is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>tmpLivesCount</mat-label>
+    <input formControlName="livesCount" matInput placeholder="Placeholder">
+    <mat-error *ngIf="form.get('livesCount').hasError('required')">
+      tmpLivesCount is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+</form>
+--->
+
+
+<div class="container" style="width: 1600px">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div *ngFor="let question of form.get('questions').value">
+
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{question.title}}</mat-card-title>
+        </mat-card-header>
+
+        <!---
+        <img mat-card-image src="https://cdn.midjourney.com/021b629c-cf63-4021-acd8-bbe71081948b/grid_0.png"
+             alt="Photo of a Shiba Inu">
+             -->
+        <img *ngIf="question.pictureUrl" mat-card-image src="{{question.pictureUrl}}">
+
+        <mat-grid-list cols="2" rowHeight="120px">
+
+          <ng-container *ngIf="question?.options.length % 2 === 0">
+            <ng-container *ngFor="let option of question?.options">
+              <mat-grid-tile class="option"
+                             [class.correct]="option.isCorrect"
+                             [colspan]="1"
+                             [rowspan]="1">
+                {{option.title}}
+              </mat-grid-tile>
+            </ng-container>
+          </ng-container>
+
+
+          <ng-container *ngIf="question?.options.length % 2 === 1">
+            <ng-container *ngFor="let option of question?.options; let i = index">
+
+              <mat-grid-tile *ngIf="i < question?.options.length-1;"
+                             [class.correct]="option.isCorrect"
+                             class="option"
+                             [colspan]="1"
+                             [rowspan]="1">
+                {{option.title}}
+              </mat-grid-tile>
+
+              <mat-grid-tile *ngIf="i === question?.options.length-1"
+                             [class.correct]="option.isCorrect"
+                             class="toertertert"
+                             [colspan]="2"
+                             [rowspan]="1">
+                {{option.title}}
+              </mat-grid-tile>
+
+            </ng-container>
+          </ng-container>
+        </mat-grid-list>
+
+        <mat-card-actions>
+          <button (click)="openEditTaskDialog(question)" mat-icon-button color="primary">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="openDeleteDialog(question)" mat-icon-button color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+
+      </mat-card>
+    </div>
+  </div>
+</div>
+

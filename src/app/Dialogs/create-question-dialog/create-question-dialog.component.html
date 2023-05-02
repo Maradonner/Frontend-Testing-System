@@ -1,0 +1,155 @@
+<form [formGroup]="form">
+  <mat-grid-list cols="4" rowHeight="125px">
+
+    <mat-grid-tile class="myOption"
+                   [colspan]="4"
+                   [rowspan]="1"
+                   [style.background]="'#DDBDF1'">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your Question</mat-label>
+        <input matInput placeholder="example@example.com" formControlName="title" required>
+        <mat-error *ngIf="form.get('title').hasError('required')">
+          Question is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile class="myOption"
+                   [colspan]="4"
+                   [rowspan]="2"
+                   [style.background]="'#DDBDF1'">
+
+
+
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your pictureUrl</mat-label>
+        <input matInput placeholder="example@example.com" formControlName="pictureUrl" required>
+        <mat-error *ngIf="form.get('pictureUrl').hasError('required')">
+          pictureUrl is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <ng-container>
+      <ng-container formArrayName="options">
+        <ng-container *ngFor="let optionForm of options.controls; let i = index">
+          <ng-container [formGroup]="$any(optionForm)">
+            <mat-grid-tile
+                           [colspan]="2"
+                           [rowspan]="1"
+                           [style.background]="'#DDBDF1'">
+
+              <mat-form-field class="myOption" appearance="fill">
+                <mat-label>Write an option</mat-label>
+                <input matInput formControlName="title">
+                <mat-checkbox formControlName="isCorrect" class="example-margin">is correct?</mat-checkbox>
+                <button *ngIf="options.length>2" matSuffix mat-button
+                        (click)="options.length>2 && deleteOption(i)">
+                  <mat-icon class="delete-btn">delete_forever</mat-icon>
+                </button>
+                <mat-error *ngIf="options.at(i).get('title').hasError('required')">
+                  Option title <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+            </mat-grid-tile>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <mat-grid-tile *ngIf="options.length<6"
+                   class="myOption"
+                   [colspan]="2"
+                   [rowspan]="1">
+      <button class="topButton" mat-raised-button color="primary" (click)="addOption()">
+        Add new Option
+        <mat-icon class="add-course-btn">add</mat-icon>
+      </button>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+</form>
+
+<mat-dialog-actions>
+  <button
+    mat-raised-button color="primary"
+    (click)="onConfirm()"
+    [disabled]="form.invalid">
+    Save
+  </button>
+  <button
+    mat-raised-button color="accent"
+    (click)="onCancel()">
+    CANCEL
+  </button>
+</mat-dialog-actions>
+
+
+<!---
+<mat-form-field [formGroup]="form">
+  <mat-label>Choose correct option</mat-label>
+  <ng-container formArrayName="options">
+    <mat-select [(ngModel)]="tmpOption"
+                [compareWith]="compareOptions"
+                [ngModelOptions]="{standalone: true}">
+      <mat-option *ngFor="let option of options.controls; let i = index"
+                  [value]="option.value">
+        {{i + 1 + ". " + option.value['title']}}
+      </mat-option>
+    </mat-select>
+  </ng-container>
+</mat-form-field>
+--->
+<!---
+<ng-container [formGroup]="form">
+<ng-container formArrayName="options">
+  <ng-container *ngFor="let lessonForm of options.controls; let i = index">
+    <ng-container [formGroup]="$any(lessonForm)">
+      <mat-form-field class="myOption" appearance="fill">
+        <mat-label>Write an option</mat-label>
+        <input matInput formControlName="title">
+        <mat-checkbox formControlName="isCorrect" class="example-margin">is correct?</mat-checkbox>
+        <button *ngIf="options.length>2" matSuffix mat-button
+                (click)="options.length>2 && deleteOption(i)">
+          <mat-icon class="delete-btn">delete_forever</mat-icon>
+        </button>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+</ng-container>
+</ng-container>
+
+
+<button class="topButton" mat-raised-button color="primary" (click)="addOption()">
+Add new Option
+<mat-icon class="add-course-btn">add</mat-icon>
+</button>
+
+<mat-dialog-actions>
+  <button
+    mat-raised-button color="primary"
+    (click)="onConfirm()"
+    [disabled]="inputName.value.trim().length==0 || form.invalid">
+    Save
+  </button>
+</mat-dialog-actions>
+--->
+<!---
+<mat-slide-toggle class="tp-margin"
+                  [(ngModel)]="checked">
+  {{checked ? 'Drag and drop file' : 'Upload using link'}}
+</mat-slide-toggle>
+--->
+
+<!---
+<div *ngIf="!checked" class="dropzone" appDnd (fileDropped)="onFileDropped($event)">
+  <input class="fileInput" type="file" #fileDropRef id="fileDropRef" multiple
+         (change)="fileBrowseHandler($event)"/>
+  Drag and drop file here
+  or
+  <label for="fileDropRef">Browse for file</label>
+</div>
+--->

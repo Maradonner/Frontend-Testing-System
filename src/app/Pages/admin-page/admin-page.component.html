@@ -1,0 +1,234 @@
+<!-- Main content -->
+<div class="container">
+
+
+  <div class="container">
+    <div class="row">
+
+      <div class="wrapper-1 col-6">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div class="card-title text-disabled">Customers</div>
+            </div>
+            <div class="fs-4 fw-semibold pb-3">44.725</div>
+            <small class="text-danger">(-12.4%)</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrapper-2 col-6">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div class="card-title text-disabled">Customers</div>
+            </div>
+            <div class="fs-4 fw-semibold pb-3">44.725</div>
+            <small class="text-success">(-12.4%)</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="wrapper">
+    <div class="content">
+      <div class="row">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input [(ngModel)]="searchValue" matInput (keyup)="applyFilter(searchValue)">
+            <button matSuffix mat-stroked-button aria-label="Clear" *ngIf="searchValue" (click)="clearSearch()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+
+
+
+
+        <div class="card-body">
+
+          <div class="example-loading-shade"
+               *ngIf="isLoadingResults || isRateLimitReached">
+            <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+              GitHub's API rate limit has been reached. It will be reset in one minute.
+            </div>
+          </div>
+
+
+          <table mat-table matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+                 [dataSource]="dataSource" multiTemplateDataRows
+                 class="mat-elevation-z8">
+
+            <ng-container *ngFor="let column of specialToDisplay" matColumnDef="{{column}}">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef> {{column}} </th>
+              <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="operations">
+              <th mat-header-cell *matHeaderCellDef>Operations</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="openDeleteDialog(element); $event.stopPropagation()"
+                        class="delete-icon">
+                  <mat-icon aria-hidden="false">delete</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openEditTaskDialog(element); $event.stopPropagation()"
+                        class="edit-icon">
+                  <mat-icon aria-hidden="false">edit</mat-icon>
+                </button>
+                <button mat-icon-button aria-label="expand row"
+                        (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                  <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                  <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+
+            <!--
+            <ng-container matColumnDef="expand">
+              <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button aria-label="expand row"
+                        (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                  <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                  <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            -->
+
+
+            <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                <div class="example-element-detail"
+                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+                  <div class="example-element-description">
+                    <div *ngFor="let quiz of element.quizzes">
+                      {{quiz.id }}
+                      {{quiz.title }}
+                      {{quiz.description }}
+                      {{quiz.userId }}
+                      {{quiz.questionTime }}
+                      {{quiz.livesCount }}
+                      {{quiz.accumulateTime }}
+                      {{quiz.pictureUrl }}
+
+                      <button (click)="openEditTaskDialog(quiz)" mat-button>Edit</button>
+                      <button (click)="openDeleteDialog(quiz)" mat-button>Delete</button>
+
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+                class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+            >
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+          </table>
+
+          <mat-paginator [length]="users.length"
+                         [pageSize]="10"
+                         [pageSizeOptions]="[5, 10, 20]"
+                         [showFirstLastButtons]="true">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+
+<!--
+    <table [dataSource]="dataSource" mat-table>
+
+      <ng-container matColumnDef="index">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let index = index;" mat-cell>
+          {{index + 1}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <th *matHeaderCellDef mat-header-cell> Id</th>
+        <td *matCellDef="let user" mat-cell>
+          {{user.id}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="username">
+        <th *matHeaderCellDef mat-header-cell> UserName</th>
+        <td *matCellDef="let user" mat-cell>
+          {{user.username}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="role">
+        <th *matHeaderCellDef mat-header-cell> Role</th>
+        <td *matCellDef="let user" mat-cell>
+          {{user.name}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quizzes">
+        <th mat-header-cell *matHeaderCellDef>Quizzes</th>
+        <td mat-cell *matCellDef="let user">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Quizzes
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngFor="let quiz of user.quizzes">
+              <mat-list-item>{{ quiz.title }}</mat-list-item>
+            </div>
+          </mat-expansion-panel>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="operations">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td class="col-operations" mat-cell *matCellDef="let user">
+          <button mat-icon-button (click)="openDeleteDialog(user)"
+                  class="delete-icon">
+            <mat-icon aria-hidden="false">delete</mat-icon>
+          </button>
+          <button mat-icon-button (click)="openEditTaskDialog(user)"
+                  class="edit-icon">
+            <mat-icon aria-hidden="false">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+
+      <tr *matHeaderRowDef="displayedColumns;" mat-header-row></tr>
+
+
+      <tr (click)="toggleExpansion()" *matRowDef="let row; columns:displayedColumns;" mat-row></tr>
+    </table>
+
+
+    <mat-paginator [length]="users.length"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   [showFirstLastButtons]="true">
+    </mat-paginator>
+
+    -->
+
+
+    <div class="card-footer ">
+      <hr>
+      <div class="stats" (click)="updateUser()">
+        <i class="fa fa-refresh"></i> Updated 3 minutes ago
+      </div>
+    </div>
+
+  </div>
+
+</div>

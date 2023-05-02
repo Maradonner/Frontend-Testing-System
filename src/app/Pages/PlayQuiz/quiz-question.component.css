@@ -1,0 +1,71 @@
+mat-card-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+
+mat-grid-tile {
+  font-size: 24px;
+  font-weight: 400;
+  cursor: pointer;
+  color: white;
+  background: #131313;
+}
+
+mat-grid-tile:hover {
+  background-color: #272727;
+}
+
+.correct {
+  background: linear-gradient(to bottom, #4caf50, #47ff19);
+}
+
+.incorrect {
+  background: linear-gradient(to bottom, #cc4200, #b71c1c);
+}
+
+.example-card {
+  max-width: 600px;
+  max-height: 600px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.progress {
+  min-height: 10px;
+  height: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+mat-progress-bar {
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 20px;
+}
+
+.progress-bar-value {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  font-size: 20px;
+  color: white;
+}
+
+
+.mat-progress-bar {
+  height: 50px !important;
+}
+
+
+img {
+  min-height: 350px;
+  min-width: 600px;
+}

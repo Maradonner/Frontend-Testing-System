@@ -1,0 +1,160 @@
+<!---
+<form [formGroup]="form">
+  <h1 class="h3 mb-3 fw-normal">CREATE ACCOUNT</h1>
+
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="example@example.com" [formControl]="username" required>
+      <mat-error *ngIf="username.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="username.hasError('email')">
+        Not a valid email
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput placeholder="example@example.com" [formControl]="password" required>
+      <mat-error *ngIf="password.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="password.hasError('minlength')">
+        Now: {{form.get('password').value.length}}
+        Min Length required: 5
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <button
+    (click)="onSubmit()"
+    [disabled]="form.invalid || form.disabled"
+    mat-raised-button color="primary">Sign in</button>
+</form>
+--->
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h2 class="text-center mb-4">Please sign up</h2>
+      <form [formGroup]="form">
+
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input [class.is-invalid]="form.get('email').touched && form.get('email').invalid"
+                 type="email" class="form-control" id="email" formControlName="email" aria-describedby="emailHelp">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <div class="invalid-feedback">
+            Please provide a valid email.
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input [class.is-invalid]="form.get('password').touched && form.get('password').invalid"
+                 type="password" class="form-control" formControlName="password" id="password">
+          <div class="invalid-feedback">
+            Please provide a valid password.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Confirm Password</label>
+          <input [class.is-invalid]="form.get('confirmPassword').touched && form.get('confirmPassword').invalid"
+                 type="password" class="form-control" formControlName="confirmPassword" id="confirmPassword">
+          <div class="invalid-feedback">
+            Passwords don't match.
+          </div>
+          <mat-error *ngIf="form.hasError('mismatch')">Passwords don't match</mat-error>
+
+        </div>
+
+
+        <button (click)="onSubmit()" [disabled]="form.invalid"
+                type="submit" class="btn btn-primary btn-block">Submit
+        </button>
+
+        <p class="form-footer">
+          Already registered? Sign in here <a [routerLink]="['/login']">Sign up</a>
+        </p>
+
+        <p class="form-footer">
+          <a [routerLink]="['/restore']">Forgot your password?</a>
+        </p>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!---
+<form [formGroup]="form">
+  <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="example@example.com" formControlName="email" required>
+      <mat-error *ngIf="form.get('email').hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="form.get('email').hasError('email')">
+        Not a valid email
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+
+      <mat-label>Enter your password</mat-label>
+      <input [type]="hidePassword ? 'password' : 'text'" matInput
+             formControlName="password" required>
+      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+
+      <mat-error *ngIf="form.get('password').hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="form.get('password').hasError('minlength')">
+        Now: {{form.get('password').value.length}}
+        Min Length required: 5
+      </mat-error>
+
+    </mat-form-field>
+  </div>
+
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Confirm your password</mat-label>
+      <input [type]="hidePassword ? 'password' : 'text'" matInput
+             formControlName="confirmPassword" required>
+      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="form.get('confirmPassword').hasError('required')">
+        Confirm Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-error *ngIf="form.hasError('mismatch')">Passwords don't match</mat-error>
+  </div>
+
+  <button
+    (click)="onSubmit()"
+    [disabled]="form.invalid || form.disabled"
+    mat-raised-button color="primary">Sign up
+  </button>
+
+</form>
+
+<div [routerLink]="['/login']">Already registered? Sign in here</div>
+--->

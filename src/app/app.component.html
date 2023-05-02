@@ -1,0 +1,103 @@
+<mat-sidenav-container class="sidebar-container">
+  <mat-sidenav #sidenav role="navigation" mode="side" opened="true">
+
+    <mat-toolbar  matTooltip="Home Page"
+      class="sidebar-head" [routerLink]="['/']" >
+        <img width="100" height="100" priority style="margin: auto"
+             ngSrc="v1674914253/grid_1-PhotoRoom.png-PhotoRoom_1_bcvim9.png"
+             alt="Photo of a Fox">
+    </mat-toolbar>
+    <mat-nav-list class="sidebar-nav">
+      <div *ngFor="let menuItem of menuItems" class="centerItems">
+        <a routerLinkActive="active"
+           matTooltip="{{menuItem.title}}"
+           mat-list-item [routerLink]="[menuItem.path]" class="sidebar-nav-item">
+
+        <div style="display: flex; align-items: center">
+          <mat-icon class="sidebar-nav-icon">{{menuItem.icon}}</mat-icon>
+          <span style="margin-top: 5px;" mat-line class="sidebar-nav-text">{{menuItem.title}}</span>
+        </div>
+
+        </a>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content cdkScrollable>
+
+    <mat-toolbar class="sidebar-header">
+      <button mat-icon-button matTooltip="Main Menu"
+              (click)="sidenav.toggle()" >
+        <mat-icon style="color: black">menu</mat-icon>
+      </button>
+
+      <div class="centerItems path">
+        <ng-container *ngFor="let segment of path; let i = index">
+          <mat-icon>arrow_forward_ios</mat-icon>
+          <a [routerLink]="path" >{{ segment }}</a>
+        </ng-container>
+      </div>
+
+      <!-- Notification Dropdown -->
+      <div class="dropdown" style="margin-left: auto" *ngIf="auth.isAuthenticated()">
+        <button mat-fab color="primary"  type="button" id="notificationDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+
+          <mat-icon matBadge="15" matBadgeColor="warn">notifications_active</mat-icon>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+          <li><h6 class="dropdown-header">Notifications</h6></li>
+          <li>
+            <a class="dropdown-item" href="#">
+              <strong>Notification 1</strong><br>
+              <small>1 hour ago</small>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">
+              <strong>Notification 2</strong><br>
+              <small>3 hours ago</small>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">
+              <strong>Notification 3</strong><br>
+              <small>5 hours ago</small>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="#">View all notifications</a></li>
+        </ul>
+      </div>
+
+      <button *ngIf="!auth.isAuthenticated()" style="margin-left: auto" [routerLink]="['/login']" mat-raised-button color="primary">
+        <mat-icon>login</mat-icon>
+        Log IN
+      </button>
+
+    </mat-toolbar>
+
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div><!--class="d-flex justify-content-center align-items-center"--->
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+
+
+</mat-sidenav-container>
+
+

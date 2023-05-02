@@ -1,0 +1,14 @@
+<div (mouseenter)="resetProgressBar()" id="custom-snack-bar-container"
+     (mouseleave)="startAgain()">
+  <div class="custom-snack-bar-row">
+		<span class="example-snack-bar-message">
+  {{ data.message }}
+</span>
+    <button id="action-button" (click)="dismissWithAction()" mat-button color="warn">{{data.action}}</button>
+  </div>
+
+  <mat-progress-bar id="progress-bar" mode="determinate" [value]="progress" color="warn"></mat-progress-bar>
+</div>
+
+
+
