@@ -4,6 +4,7 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {filter, map} from "rxjs";
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {MatSidenavContainer} from "@angular/material/sidenav";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 
 export interface RouteInfo {
@@ -33,16 +34,33 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(public auth: AuthService,
-              private route: ActivatedRoute,
-              private router: Router) {
-  }
 
+  public isMenuOpen:boolean = false;
   @ViewChild(MatSidenavContainer) sidenavContainer: MatSidenavContainer;
   @ViewChild(CdkScrollable) scrollable: CdkScrollable;
 
   public menuItems: any[];
-  path: string[];
+  public path: string[];
+
+
+  constructor(public auth: AuthService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private breakpointObserver: BreakpointObserver) {
+    this.breakpointObserver
+      .observe(['(min-width: 1025px)'])
+      .pipe(map(result => result.matches))
+      .subscribe(isDesktop => {
+        this.isMenuOpen = isDesktop;
+        console.log(this.isMenuOpen)
+
+      });
+  }
+
+
+
+
+
 
   logOut(): void {
     this.auth.logout();

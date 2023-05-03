@@ -1,4 +1,21 @@
-
+<div class="col-md-8 col-xl-10 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
+  <div class="action-btn show-btn">
+    <a href="javascript:void(0)"
+       class="btn-light-danger btn me-2 text-danger d-flex align-items-center">
+      <mat-icon>delete</mat-icon>
+      Delete All Row</a>
+  </div>
+  <a href="javascript:void(0)" id="btn-add-contact" class="btn btn-info">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         class="feather feather-users feather-sm fill-white me-1">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+      <circle cx="9" cy="7" r="4"></circle>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+    </svg>
+    Add Contact</a>
+</div>
 
 <mat-tab-group animationDuration="0ms">
   <mat-tab label="My Profile">
@@ -12,51 +29,45 @@
 
 
         <mat-card-content>
-          <div class="container mt-5">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card">
-                  <img src="path/to/profile-picture.jpg" class="card-img-top" alt="Profile Picture">
-                  <div class="card-body">
-                    <h5 class="card-title">John Doe</h5>
-                    <p class="card-text">Student at XYZ University</p>
-                    <a href="#" class="btn btn-primary">Edit Profile</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-8">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">User Information</h5>
-                    <form>
-                      <div class="form-row">
-                        <div class="form-group col-md-6">
-                          <label for="inputEmail">Email</label>
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="john@example.com" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputUsername">Username</label>
-                          <input type="text" class="form-control" id="inputUsername" placeholder="Username" value="john.doe" readonly>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" value="1234 Main St, Apt 5B" readonly>
-                      </div>
-                      <div class="form-row">
-                        <div class="form-group col-md-4">
-                          <label for="inputCity">City</label>
-                          <input type="text" class="form-control" id="inputCity" value="New York" readonly>
-                        </div>
-                        <div class="form-group col-md-4">
-                          <label for="inputState">State</label>
-                          <input type="text" class="form-control" id="inputState" value="NY" readonly>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
+          <div class="container">
+            <div class="header">
+              <img class="cover-photo" src="assets/cover-photo.jpg" alt="Cover Photo">
+              <img class="profile-picture" src="assets/profile-picture.jpg" alt="Profile Picture">
+              <h2 class="user-name">John Doe</h2>
+            </div>
+
+            <div class="main-content">
+              <mat-card class="card about">
+                <mat-card-header>
+                  <mat-card-title>About</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card class="card skills">
+                <mat-card-header>
+                  <mat-card-title>Skills</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <ul>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                  </ul>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card class="card contact">
+                <mat-card-header>
+                  <mat-card-title>Contact</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>Email: john.doe@example.com</p>
+                  <p>Phone: +1 (555) 123-4567</p>
+                </mat-card-content>
+              </mat-card>
             </div>
           </div>
         </mat-card-content>
@@ -92,7 +103,7 @@
                          width="500"
                          height="500"
                          class="card-img-top" alt="Quiz Image"
-                         >
+                    >
                   </div>
                   <div class="card-body">
                     <h5 class="card-title text-primary">{{quiz.title}}</h5>
@@ -103,12 +114,13 @@
                       ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
                     </p>
                     <p class="card-text">
-                      <small class="text-muted">Lives: <span class="livesCount text-primary">3</span> | Question Time: <span
-                        class="questionTime text-primary">10 seconds</span></small>
+                      <small class="text-muted">Lives: <span class="livesCount text-primary">3</span> | Question Time:
+                        <span
+                          class="questionTime text-primary">10 seconds</span></small>
                     </p>
                     <hr>
 
-                    <div class="centerTupich">
+                    <div class="d-flex centerTupich">
                       <div class="centerItems" matTooltip="lives Count">
                         <mat-icon>favorite</mat-icon>
                         <div>X{{quiz.livesCount}}</div>

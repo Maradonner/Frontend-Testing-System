@@ -1,5 +1,5 @@
 <mat-sidenav-container class="sidebar-container">
-  <mat-sidenav #sidenav role="navigation" mode="side" opened="true">
+  <mat-sidenav #sidenav role="navigation" mode="side"  [(opened)]="isMenuOpen" >
 
     <mat-toolbar  matTooltip="Home Page"
       class="sidebar-head" [routerLink]="['/']" >

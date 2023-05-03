@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Subscription} from "rxjs";
@@ -13,79 +13,67 @@ import * as signalR from '@microsoft/signalr';
   styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent implements OnInit, OnDestroy {
-  private hubConnection: signalR.HubConnection
-
-  constructor(private fb: FormBuilder,
-              private auth: AuthService,
-              private route: ActivatedRoute,
-              private router: Router,) {
-  }
-
+  private hubConnection: signalR.HubConnection;
   aSub: Subscription;
-  hidePassword: boolean = true;
-  hideConfirmPassword: boolean = true;
+  hidePassword = true;
+  hideConfirmPassword = true;
+  proceed = false;
 
+  form: FormGroup = this.fb.group(
+    {
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(5)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(5)]],
+    },
+    { validator: compareValidator }
+  );
+
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
       if (params['registered']) {
         // Now you have access to log in
       } else if (params['accessDenied']) {
-        //fdgdfgdfh
+        // Access denied message
       }
-    })
+    });
   }
 
-
-  form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(5)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(5)]],
-  }, {validator: compareValidator})
-
-
-  onSubmit() {
+  onSubmit(): void {
     this.form.disable();
+    this.proceed = true;
 
     if (this.form.invalid) {
-      console.log("You do not have access");
+      console.log('You do not have access');
       return;
     }
 
     const user: User = {
       username: this.form.value.email,
-      password: this.form.value.password
-    }
+      password: this.form.value.password,
+    };
 
     this.aSub = this.auth.register(user).subscribe(
-      (value) => {
-        this.auth.login(user).subscribe(() =>{
-          this.router.navigate(['/account'])
-        })
-
-
-        /*
-        this.router.navigate(['/login'], {
-          queryParams: {
-            registered: true
-          }
-        })
-        console.log("SUCCESS")
-        console.log(value)
-
-         */
-
+      () => {
+        this.auth.login(user).subscribe(() => {
+          this.router.navigate(['/account']);
+        });
       },
       (error) => {
-        console.log('ERROR:', error)
+        console.log('ERROR:', error);
         this.form.enable();
-      })
+      }
+    );
   }
 
   ngOnDestroy(): void {
-    if (this.aSub) {
-      this.aSub.unsubscribe();
-    }
+    this.aSub?.unsubscribe();
   }
 
 }

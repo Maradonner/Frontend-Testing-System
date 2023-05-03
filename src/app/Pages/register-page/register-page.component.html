@@ -1,41 +1,3 @@
-<!---
-<form [formGroup]="form">
-  <h1 class="h3 mb-3 fw-normal">CREATE ACCOUNT</h1>
-
-  <div class="example-container">
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your email</mat-label>
-      <input matInput placeholder="example@example.com" [formControl]="username" required>
-      <mat-error *ngIf="username.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="username.hasError('email')">
-        Not a valid email
-      </mat-error>
-    </mat-form-field>
-  </div>
-
-  <div class="example-container">
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your password</mat-label>
-      <input matInput placeholder="example@example.com" [formControl]="password" required>
-      <mat-error *ngIf="password.hasError('required')">
-        Password is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="password.hasError('minlength')">
-        Now: {{form.get('password').value.length}}
-        Min Length required: 5
-      </mat-error>
-    </mat-form-field>
-  </div>
-
-  <button
-    (click)="onSubmit()"
-    [disabled]="form.invalid || form.disabled"
-    mat-raised-button color="primary">Sign in</button>
-</form>
---->
-
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col">
@@ -76,7 +38,11 @@
 
 
         <button (click)="onSubmit()" [disabled]="form.invalid"
-                type="submit" class="btn btn-primary btn-block">Submit
+                type="submit" class="btn btn-primary btn-block">
+          <span *ngIf="proceed"
+                class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+          </span>
+          Submit
         </button>
 
         <p class="form-footer">
@@ -92,69 +58,3 @@
   </div>
 </div>
 
-
-<!---
-<form [formGroup]="form">
-  <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
-
-  <div class="example-container">
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your email</mat-label>
-      <input matInput placeholder="example@example.com" formControlName="email" required>
-      <mat-error *ngIf="form.get('email').hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="form.get('email').hasError('email')">
-        Not a valid email
-      </mat-error>
-    </mat-form-field>
-  </div>
-
-  <div class="example-container">
-    <mat-form-field appearance="fill">
-
-      <mat-label>Enter your password</mat-label>
-      <input [type]="hidePassword ? 'password' : 'text'" matInput
-             formControlName="password" required>
-      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hidePassword">
-        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-
-      <mat-error *ngIf="form.get('password').hasError('required')">
-        Password is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="form.get('password').hasError('minlength')">
-        Now: {{form.get('password').value.length}}
-        Min Length required: 5
-      </mat-error>
-
-    </mat-form-field>
-  </div>
-
-  <div class="example-container">
-    <mat-form-field appearance="fill">
-      <mat-label>Confirm your password</mat-label>
-      <input [type]="hidePassword ? 'password' : 'text'" matInput
-             formControlName="confirmPassword" required>
-      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
-              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-      <mat-error *ngIf="form.get('confirmPassword').hasError('required')">
-        Confirm Password is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-error *ngIf="form.hasError('mismatch')">Passwords don't match</mat-error>
-  </div>
-
-  <button
-    (click)="onSubmit()"
-    [disabled]="form.invalid || form.disabled"
-    mat-raised-button color="primary">Sign up
-  </button>
-
-</form>
-
-<div [routerLink]="['/login']">Already registered? Sign in here</div>
---->

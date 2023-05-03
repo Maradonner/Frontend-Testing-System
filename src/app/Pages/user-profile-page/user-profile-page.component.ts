@@ -27,12 +27,8 @@ export class UserProfilePageComponent implements OnInit {
   }
 
   public displayedColumns: string[] = ['index', 'id', 'title', 'startTime', 'score', 'operations'];
-
-
   public dataSource = new MatTableDataSource<any>;
   users: any[] = [];
-
-
   attempts: ActiveTrivia[] = []
   quizzes: Quiz[] = []
 
@@ -42,6 +38,7 @@ export class UserProfilePageComponent implements OnInit {
     id: 0,
     quizzes: []
   };
+
   expandedPanel = true;
 
   ngOnInit() {
