@@ -64,8 +64,13 @@
           <input type="checkbox" class="form-check-input" id="rememberMe">
           <label class="form-check-label" for="rememberMe">Remember Me</label>
         </div>
-        <button  (click)="onSubmit()"
-          type="submit" class="btn btn-primary btn-block">Submit</button>
+        <button (click)="onSubmit()" [disabled]="form.invalid"
+                type="submit" class="btn btn-primary btn-block">
+          <span *ngIf="submitting"
+                class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+          </span>
+          Submit
+        </button>
 
         <mat-error>
           {{form.get('error')?.value}}

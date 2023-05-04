@@ -4,21 +4,22 @@ img {
   height: 100%;
 }
 
-.outer {
-  padding: 10px
+.quiz-card-container {
+  cursor: pointer;
+  padding: 10px;
 }
 
-.centerTupich {
+.stat-icons {
   display: flex;
   justify-content: center;
 }
 
-.centerItems {
+.stat-item {
   display: flex;
   align-items: center;
 }
 
-.imgCard {
+.img-card {
   width: 100%;
   height: 300px;
   overflow: hidden;

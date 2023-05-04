@@ -22,6 +22,7 @@
 }
 
 .solution_cards_box .solution_card {
+  cursor: pointer;
   flex: 0 50%;
   background: #fff;
   box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),
@@ -124,9 +125,7 @@
   transition: 0.7s;
 }
 
-.solution_cards_box .solution_card:hover .hover_color_bubble {
-  top: 0rem;
-}
+
 
 .solution_cards_box .solution_card .so_top_icon {
   width: 60px;

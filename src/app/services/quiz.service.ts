@@ -61,5 +61,9 @@ export class QuizService {
     return this.http.get<Quiz[]>(this.baseApiUrl + '/api/Quiz/get-my-quizzes')
   }
 
+  deleteQuiz(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(this.baseApiUrl + '/api/Quiz/delete/' + id);
+  }
+
 
 }

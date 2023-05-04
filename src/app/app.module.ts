@@ -58,21 +58,24 @@ import {CreateCoursePageComponent} from "./Pages/create-course-page/create-cours
 import {MatChipsModule} from "@angular/material/chips";
 import {MatBadgeModule} from "@angular/material/badge";
 import {UpdatePageComponent} from "./Pages/update-page/update-page.component";
+import {CreatePageComponent} from "./Pages/create-page/create-page.component";
 
 const appRoutes: Routes = [
-  {path: 'quiz/start', component: MainPageComponent,},
-  {path: 'login', component: LoginPageComponent,},
-  {path: 'account', component: UserProfilePageComponent, canActivate: [AuthGuard]},
+
   {path: 'register', component: RegisterPageComponent,},
+  {path: 'login', component: LoginPageComponent,},
+  {path: 'logout', component: UpdateQuizPageComponent,},
+  {path: 'account', component: UserProfilePageComponent, canActivate: [AuthGuard]},
   {path: 'admin', component: AdminPageComponent, canActivate: [AuthGuard]},
-  {path: 'create/quiz', component: CreateQuizComponent, canActivate: [AuthGuard]},
+  {path: 'quiz/start', component: MainPageComponent,},
   {path: 'choose', component: ChoosePageComponent,},
   {path: 'choose/quiz', component: ChooseQuizPageComponent,},
   {path: 'update', component: UpdatePageComponent, canActivate: [AuthGuard]},
   {path: 'update/quiz', component: UpdateQuizPageComponent, canActivate: [AuthGuard]},
-  {path: 'logout', component: UpdateQuizPageComponent,},
+  {path: 'create', component: CreatePageComponent,},
+  {path: 'create/quiz', component: CreateQuizComponent, canActivate: [AuthGuard]},
   {path: 'create/exam', component: CreateExamPageComponent, canActivate: [AuthGuard]},
-  {path: 'create/course', component: CreateCoursePageComponent,},
+  {path: 'create/course', component: CreateCoursePageComponent, canActivate: [AuthGuard]},
 ]
 
 @NgModule({
@@ -143,9 +146,7 @@ const appRoutes: Routes = [
     {provide: 'BASE_URL', useFactory: () => "https://vhdk4wclsm2oamga6ynnstpvva0pzeyi.lambda-url.eu-north-1.on.aws/", deps: []},
     {provide: HTTP_INTERCEPTORS, multi: true, useClass: TokenInterceptor},
     {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
-
   ],
-
 
   entryComponents: [
     DialogBoxComponent

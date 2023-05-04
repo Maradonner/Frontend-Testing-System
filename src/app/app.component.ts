@@ -19,6 +19,8 @@ export const ROUTES: RouteInfo[] = [
   //{path: 'login', title: 'Login', icon: 'login', class: ''},
   {path: 'admin', title: 'Admin', icon: 'badge', class: ''},
   {path: 'account', title: 'My Account', icon: 'account_box', class: ''},
+  {path: 'create', title: 'Create', icon: 'create', class: ''},
+
   //{path: 'create/quiz', title: 'Create', icon: 'edit', class: ''},
   //{path: 'update/quiz', title: 'Quiz', icon: 'quiz', class: ''},
   {path: 'update', title: 'Update', icon: 'update', class: ''},

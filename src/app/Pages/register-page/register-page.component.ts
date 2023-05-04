@@ -17,15 +17,16 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   aSub: Subscription;
   hidePassword = true;
   hideConfirmPassword = true;
-  proceed = false;
+  submitting = false;
 
   form: FormGroup = this.fb.group(
     {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(5)]],
+      error: new FormControl(''),
     },
-    { validator: compareValidator }
+    {validator: compareValidator}
   );
 
   constructor(
@@ -33,7 +34,8 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
@@ -47,10 +49,10 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.form.disable();
-    this.proceed = true;
+    this.submitting = true;
 
     if (this.form.invalid) {
-      console.log('You do not have access');
+      this.form.get('error')?.setValue('Invalid Data');
       return;
     }
 

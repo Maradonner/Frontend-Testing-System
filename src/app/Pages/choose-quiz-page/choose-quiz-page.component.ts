@@ -2,12 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {QuizService} from "../../services/quiz.service";
 import {Router} from "@angular/router";
 import {Quiz} from "../../models/QuizModel";
-import {
-  debounceTime,
-  fromEvent, lastValueFrom,
-  map,
-  Subscription,
-} from "rxjs";
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -27,24 +22,15 @@ export class ChooseQuizPageComponent implements OnInit, OnDestroy {
               private router: Router) {
   }
 
-
-  /*
-  loadMore() {
-    console.log(this.page, this.totalPages)
-    if(this.page >= this.totalPages){
-      this.subScroll$.unsubscribe()
-      return;
-    }
-    this.quizService.getPageNumber(this.page).subscribe((data: Quiz[]) => {
-      this.quizzes = this.quizzes.concat(data);
-      this.page++;
-    });
+  getQuizImageUrl(pictureUrl: string): string {
+    const parts = pictureUrl.split('/');
+    return parts[6] + '/' + parts[7];
   }
-   */
+
 
 
   async ngOnInit() {
-    this.quizService.displayAll().subscribe((quizzes)=> {
+    this.quizService.displayAll().subscribe((quizzes) => {
       this.quizzes = quizzes;
     })
     /*
@@ -59,34 +45,48 @@ export class ChooseQuizPageComponent implements OnInit, OnDestroy {
   }
 
 
-  /*
-  ngAfterViewInit() {
-    const content = document.querySelector('.mat-sidenav-content');
-    this.subScroll$ = fromEvent(content, 'scroll')
-      .pipe(debounceTime(100),
-        map((event: any) => {
-          let tracker = event.target;
-          let endReached = false;
-          let limit = tracker.scrollHeight - tracker.clientHeight;
-
-          console.log(event.target.scrollTop, limit);
-
-          if (event.target.scrollTop > limit - 600) {
-            console.log("ENDED")
-            this.loadMore();
-            endReached = true;
-          }
-
-        })).subscribe()
-  }
-   */
-
   ngOnDestroy(): void {
-    if (this.subScroll$) {
-      this.subScroll$.unsubscribe();
-    }
+      this.subScroll$?.unsubscribe();
   }
 }
+
+
+/*
+loadMore() {
+  console.log(this.page, this.totalPages)
+  if(this.page >= this.totalPages){
+    this.subScroll$.unsubscribe()
+    return;
+  }
+  this.quizService.getPageNumber(this.page).subscribe((data: Quiz[]) => {
+    this.quizzes = this.quizzes.concat(data);
+    this.page++;
+  });
+}
+ */
+
+
+/*
+ngAfterViewInit() {
+  const content = document.querySelector('.mat-sidenav-content');
+  this.subScroll$ = fromEvent(content, 'scroll')
+    .pipe(debounceTime(100),
+      map((event: any) => {
+        let tracker = event.target;
+        let endReached = false;
+        let limit = tracker.scrollHeight - tracker.clientHeight;
+
+        console.log(event.target.scrollTop, limit);
+
+        if (event.target.scrollTop > limit - 600) {
+          console.log("ENDED")
+          this.loadMore();
+          endReached = true;
+        }
+
+      })).subscribe()
+}
+ */
 
 
 /*

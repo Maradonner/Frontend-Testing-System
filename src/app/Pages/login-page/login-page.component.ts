@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
@@ -11,48 +11,50 @@ import {User} from "../../models/User";
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnDestroy {
-  constructor(private fb: FormBuilder,
-              private auth: AuthService,
-              private route: ActivatedRoute,
-              private router: Router) {
-  }
-
   submitting: boolean = false;
   aSub: Subscription;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
 
-
-  form = this.fb.group({
+  form: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(5)]],
-    error: new FormControl('')
-  })
+    error: new FormControl(''),
+  });
 
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+  }
 
-  onSubmit() {
-    this.submitting = true;
+  onSubmit(): void {
     this.form.disable();
+    this.submitting = true;
+
 
     if (this.form.invalid) {
-      this.form.get('error')?.setValue('Invalid Data')
+      this.form.get('error')?.setValue('Invalid Data');
       return;
     }
 
     const user: User = {
       username: this.form.value.email,
-      password: this.form.value.password
-    }
+      password: this.form.value.password,
+    };
 
     this.aSub = this.auth.login(user).subscribe(
-      (value) => {
-        this.router.navigate(['/account'])
+      () => {
+        this.router.navigate(['/account']);
       },
       (error) => {
-        console.log(error?.error)
-        this.form.get('error')?.setValue(error?.error)
+        console.log(error?.error);
+        this.form.get('error')?.setValue(error?.error);
         this.form.enable();
-      })
+      }
+    );
     this.submitting = false;
   }
 

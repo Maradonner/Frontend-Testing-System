@@ -7,6 +7,7 @@ import {AuthService} from "../../services/auth.service";
 import {UserInfo} from "../../models/UserInfo";
 import {ActiveTrivia} from "../../models/ActiveTrivia";
 import {MatTableDataSource} from "@angular/material/table";
+import {ActivatedRoute, Router} from "@angular/router";
 
 interface User {
   username: string;
@@ -23,7 +24,9 @@ export class UserProfilePageComponent implements OnInit {
 
   constructor(private userService: UserService,
               private quizService: QuizService,
-              private authService: AuthService,) {
+              private authService: AuthService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   public displayedColumns: string[] = ['index', 'id', 'title', 'startTime', 'score', 'operations'];
@@ -31,24 +34,43 @@ export class UserProfilePageComponent implements OnInit {
   users: any[] = [];
   attempts: ActiveTrivia[] = []
   quizzes: Quiz[] = []
+  expandedPanel = true;
+  selectedTabIndex: number = 0;
+
+  onTabChanged(event: any): void {
+    this.selectedTabIndex = event.index;
+    this.router.navigate([], {queryParams: {tab: event.index}});
+  }
 
   user: UserInfo = {
-    username: '',
+    email: '',
     role: '',
     id: 0,
     quizzes: []
   };
 
-  expandedPanel = true;
+
+  deleteQuiz(quiz:Quiz):void{
+    this.quizService.deleteQuiz(quiz.id).subscribe((result)=>{
+      console.log(result);
+    });
+  }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.users);
+    this.route.queryParams.subscribe(params => {
+      const tabIndex = params['tab'];
+      if (tabIndex !== undefined && tabIndex >= 0 && tabIndex < 3) {
+        this.selectedTabIndex = Number(tabIndex);
+      }
+    });
 
+
+    this.dataSource = new MatTableDataSource(this.users);
 
     const jwtToken: any = jwtDecode(this.authService.getToken()) as { [key: string]: any };
     this.user.id = jwtToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']
     this.user.role = jwtToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
-    this.user.username = jwtToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
+    this.user.email = jwtToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
 
 
     this.quizService.getMyQuizzes().subscribe((result) => {
@@ -59,27 +81,7 @@ export class UserProfilePageComponent implements OnInit {
       this.attempts = result;
       console.log(this.attempts)
     })
-
-
-    /*
-    this.userService.getInfo().subscribe((result: any) => {
-      this.user = result;
-    })
-     */
-
   }
-
-  tests = [
-    {
-      title: 'Test 1',
-      description: 'This is a sample test 1.'
-    },
-    {
-      title: 'Test 2',
-      description: 'This is a sample test 2.'
-    }
-  ];
-
 
 
 }
