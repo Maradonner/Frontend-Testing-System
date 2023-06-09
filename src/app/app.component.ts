@@ -16,18 +16,11 @@ export interface RouteInfo {
 
 
 export const ROUTES: RouteInfo[] = [
-  //{path: 'login', title: 'Login', icon: 'login', class: ''},
   {path: 'admin', title: 'Admin', icon: 'badge', class: ''},
   {path: 'account', title: 'My Account', icon: 'account_box', class: ''},
   {path: 'create', title: 'Create', icon: 'create', class: ''},
-
-  //{path: 'create/quiz', title: 'Create', icon: 'edit', class: ''},
-  //{path: 'update/quiz', title: 'Quiz', icon: 'quiz', class: ''},
   {path: 'update', title: 'Update', icon: 'update', class: ''},
   {path: 'choose', title: 'Category', icon: 'quiz', class: ''},
-  //{path: 'choose/quiz', title: 'QUIZ Choose', icon: 'quiz', class: ''},
-  //{path: 'create/exam', title: 'Exam', icon: 'quiz', class: ''},
-  {path: 'logout', title: 'Logout', icon: 'logout', class: 'active-pro'},
 ];
 
 @Component({
@@ -37,13 +30,11 @@ export const ROUTES: RouteInfo[] = [
 })
 export class AppComponent implements OnInit {
 
-  public isMenuOpen:boolean = false;
+  public isMenuOpen: boolean = false;
   @ViewChild(MatSidenavContainer) sidenavContainer: MatSidenavContainer;
   @ViewChild(CdkScrollable) scrollable: CdkScrollable;
-
-  public menuItems: any[];
+  public menuItems: RouteInfo[];
   public path: string[];
-
 
   constructor(public auth: AuthService,
               private route: ActivatedRoute,
@@ -55,14 +46,8 @@ export class AppComponent implements OnInit {
       .subscribe(isDesktop => {
         this.isMenuOpen = isDesktop;
         console.log(this.isMenuOpen)
-
       });
   }
-
-
-
-
-
 
   logOut(): void {
     this.auth.logout();

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {QuestionService} from "../../services/question.service";
 import {MatDialog} from "@angular/material/dialog";
 import {QuizService} from "../../services/quiz.service";
@@ -12,8 +12,8 @@ import {autoSave} from "../create-exam-page/AutoSave";
 import {Subject} from "rxjs";
 import {FileUploadService} from "../../services/file-upload.service";
 import {QuizNotificationService} from "../../services/quiz-notification.service";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
-let key = 'CreateQuiz';
 let key$ = new Subject<string>();
 
 @Component({
@@ -21,7 +21,7 @@ let key$ = new Subject<string>();
   templateUrl: './create-quiz.component.html',
   styleUrls: ['./create-quiz.component.css']
 })
-export class CreateQuizComponent {
+export class CreateQuizComponent implements OnInit, OnDestroy{
   constructor(private service: QuestionService,
               private dialog: MatDialog,
               private quizService: QuizService,
@@ -30,17 +30,22 @@ export class CreateQuizComponent {
               private dialogService: DialogService,
               private fb: FormBuilder,
               private fileUploadService: FileUploadService,
-              private quizNotificationService: QuizNotificationService) {
+              private quizNotificationService: QuizNotificationService,
+              ) {
   }
 
   notifications: { quizId: number; quizTitle: string; userName: string }[] = [];
 
-  ngOnInit() {
+  ngOnInit():void {
     setTimeout(() => key$.next(this.key));
     this.quizNotificationService.startConnection();
     this.quizNotificationService.onQuizCreated((quizId, quizTitle, userName) => {
       this.notifications.push({ quizId, quizTitle, userName });
     });
+  }
+
+  ngOnDestroy():void {
+
   }
 
   @Input() mode: 'create' | 'update';
@@ -51,6 +56,7 @@ export class CreateQuizComponent {
     if (quiz == null) {
       return;
     }
+
 
     this.form.get("pictureUrl").setValue(quiz.pictureUrl);
     this.form.get("title").setValue(quiz.title);
@@ -98,62 +104,75 @@ export class CreateQuizComponent {
     pictureUrl: ''
   };
 
-  openAddDialog() {
-    this.dialogService.openAddQuestionDialog().afterClosed().subscribe(result => {
-      if (result as Question) {
-        let question1Value = this.form.get('questions').value;
+  openDialog(operation: 'add' | 'edit' | 'delete', question?: Question) {
+    let dialogRef;
+
+    switch(operation) {
+      case 'add':
+        dialogRef = this.dialogService.openAddQuestionDialog();
+        break;
+      case 'edit':
+        dialogRef = this.dialogService.openEditQuestionDialog(question);
+        break;
+      case 'delete':
+        dialogRef = this.dialogService.openDeleteDialog(question);
+        break;
+    }
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        let questions = this.form.get('questions').value;
+
         // @ts-ignore
-        question1Value.push(result);
-        this.form.get('questions').setValue(question1Value);
-        return;
+        let index = questions.findIndex(x => x === question);
+
+        if(operation === 'add') {
+          // @ts-ignore
+          questions.push(result);
+        } else if(operation === 'edit') {
+          // @ts-ignore
+          questions[index] = result;
+        } else if(operation === 'delete') {
+          // @ts-ignore
+          questions.splice(index, 1);
+        }
+
+        this.form.get('questions').setValue(questions);
       }
     });
+  }
+
+  openAddDialog() {
+    this.openDialog('add');
   }
 
   openEditTaskDialog(question: Question) {
-    this.dialogService.openEditQuestionDialog(question).afterClosed().subscribe(result => {
-      if (result as Question) {
-        let question1Value = this.form.get('questions').value;
-        // @ts-ignore
-        let index = question1Value.findIndex(x => x === question);
-        // @ts-ignore
-        question1Value[index] = result;
-        this.form.get('questions').setValue(question1Value);
-
-        return;
-      }
-    });
+    this.openDialog('edit', question);
   }
 
   openDeleteDialog(question: Question) {
-    this.dialogService.openDeleteDialog(question).afterClosed().subscribe(result => {
-      if (result) {
-        let question1Value = this.form.get('questions').value;
-        // @ts-ignore
-        let index = question1Value.findIndex(x => x === question);
-        // @ts-ignore
-        question1Value.splice(index, 1);
-        this.form.get('questions').setValue(question1Value);
-      }
-    });
+    this.openDialog('delete', question);
   }
 
   addQuiz() {
-    const fs: any = this.form.getRawValue();
-    this.quiz = this.form.getRawValue() as unknown as Quiz;
-    this.quizService.add(this.quiz).subscribe((response: Quiz) => {
+    const quiz:Quiz =  this.form.getRawValue() as unknown as Quiz
+    this.quizService.add(quiz).subscribe((response: Quiz) => {
       console.log(response)
-    });
+    },
+      (error:Error) => {
+      console.error(error)
+      });
   }
 
   onUpload() {
     this.fileUploadService.onUpload(this.selectedFile, "default")
       .subscribe((response: any) => {
-        let tmp = this.form.get('pictureUrl').value
-        tmp = response.secure_url;
-        this.form.get('pictureUrl').setValue(tmp);
+        this.form.get('pictureUrl').setValue(response.secure_url);
         console.log(response.secure_url);
-      });
+      },
+        (error:Error) => {
+        console.error(error)
+        });
   }
 
 
@@ -192,7 +211,8 @@ export class CreateQuizComponent {
   }
 
   onFileSelected(event) {
-    console.log('THTHTHTHT')
     this.selectedFile = <File>event.target.files[0];
   }
+
+
 }

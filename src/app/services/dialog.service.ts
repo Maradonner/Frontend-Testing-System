@@ -88,10 +88,11 @@ export class DialogService {
     return dialogRef.afterClosed()
       .toPromise()
       .then(result => {
-        if (result == "startAgain") {
+        if (result) {
           this.router.navigate(['/choose'])
           return Promise.resolve(result);
         }
+        this.router.navigate(['/choose'])
         return Promise.resolve(result);
       });
   }

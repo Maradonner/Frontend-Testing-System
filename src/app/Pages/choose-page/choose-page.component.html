@@ -1,143 +1,25 @@
-<!--
-<div class="container ">
-  <div class="center-screen">
-    <div class="row">
-
-      <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-        <a href="#" class="card modern-card top-left">
-          <div class="card-body">
-            <h5 class="card-title">Quizzes</h5>
-            <p class="card-text">Brief description of quizzes.</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-        <a href="#" class="card modern-card top-right">
-          <div class="card-body">
-            <h5 class="card-title">Exams</h5>
-            <p class="card-text">Brief description of exams.</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-        <a href="#" class="card modern-card bottom-left">
-          <div class="card-body">
-            <h5 class="card-title">Other Type 1</h5>
-            <p class="card-text">Brief description of other type 1.</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-        <a href="#" class="card modern-card bottom-right">
-          <div class="card-body">
-            <h5 class="card-title">Other Type 2</h5>
-            <p class="card-text">Brief description of other type 2.</p>
-          </div>
-        </a>
-      </div>
-
-    </div>
-  </div>
-</div>
--->
-
-
-<div class="section_our_solution center-screen">
+<div class="container">
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12" *ngFor="let solution of solutions">
       <div class="our_solution_category">
         <div class="solution_cards_box">
-
-          <div class="solution_card" [routerLink]="['quiz']">
-            <div class="hover_color_bubble"></div>
+          <div class="solution_card" [routerLink]=solution?.routerLink>
             <div class="so_top_icon">
-
             </div>
             <div class="solu_title">
-              <h3>Quizzes</h3>
+              <h3>{{solution.title}}</h3>
             </div>
             <div class="solu_description">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </p>
-            </div>
-          </div>
-
-          <div class="solution_card">
-            <div class="hover_color_bubble"></div>
-            <div class="so_top_icon">
-              <mat-icon>warning</mat-icon>
-            </div>
-            <div class="solu_title">
-              <h3>IN DEVELOPMENT</h3>
-            </div>
-            <div class="solu_description">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </p>
-            </div>
-          </div>
-
-
-        </div>
-        <!--  -->
-        <div class="solution_cards_box sol_card_top_3">
-
-          <div class="solution_card">
-            <div class="hover_color_bubble"></div>
-            <div class="so_top_icon">
-              <mat-icon>delete</mat-icon>
-            </div>
-            <div class="solu_title">
-              <h3>IN DEVELOPMENT</h3>
-            </div>
-            <div class="solu_description">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </p>
-            </div>
-          </div>
-
-          <div class="solution_card">
-            <div class="hover_color_bubble"></div>
-            <div class="so_top_icon">
-              <mat-icon>warning</mat-icon>
-            </div>
-            <div class="solu_title">
-              <h3>IN DEVELOPMENT</h3>
-            </div>
-            <div class="solu_description">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
+                {{solution.description}}
               </p>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </div>
-
 
 
 <input [(ngModel)]="perem" type="checkbox" id="switch">

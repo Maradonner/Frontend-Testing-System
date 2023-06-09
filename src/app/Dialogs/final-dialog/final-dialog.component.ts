@@ -13,11 +13,11 @@ export class FinalDialogComponent {
   }
 
   onConfirm(): void {
-    this.dialogRef.close("startAgain");
+    this.dialogRef.close(true);
   }
 
   onCancel(): void {
-    this.dialogRef.close(null);
+    this.dialogRef.close(false);
   }
 
 }

@@ -7,20 +7,42 @@
              ngSrc="v1674914253/grid_1-PhotoRoom.png-PhotoRoom_1_bcvim9.png"
              alt="Photo of a Fox">
     </mat-toolbar>
+
+
     <mat-nav-list class="sidebar-nav">
       <div *ngFor="let menuItem of menuItems" class="centerItems">
         <a routerLinkActive="active"
            matTooltip="{{menuItem.title}}"
-           mat-list-item [routerLink]="[menuItem.path]" class="sidebar-nav-item">
+           mat-list-item
+           [class]="menuItem.class"
+           [routerLink]="[menuItem.path]"
+           class="sidebar-nav-item">
 
-        <div style="display: flex; align-items: center">
-          <mat-icon class="sidebar-nav-icon">{{menuItem.icon}}</mat-icon>
-          <span style="margin-top: 5px;" mat-line class="sidebar-nav-text">{{menuItem.title}}</span>
-        </div>
-
+          <div class="centerItems">
+            <mat-icon class="sidebar-nav-icon">{{menuItem.icon}}</mat-icon>
+            <span style="margin-top: 5px;" mat-line class="sidebar-nav-text">{{menuItem.title}}</span>
+          </div>
         </a>
       </div>
+
+      <div *ngIf="auth.isAuthenticated()" class="centerItems">
+        <a routerLinkActive="active"
+           matTooltip="Logout"
+           mat-list-item
+           [routerLink]="['/logout']"
+           class="sidebar-nav-item">
+
+          <div class="centerItems">
+            <mat-icon class="sidebar-nav-icon">logout</mat-icon>
+            <span style="margin-top: 5px;" mat-line class="sidebar-nav-text">Logout</span>
+          </div>
+        </a>
+      </div>
+
     </mat-nav-list>
+
+
+
   </mat-sidenav>
 
 
@@ -35,51 +57,14 @@
       <div class="centerItems path">
         <ng-container *ngFor="let segment of path; let i = index">
           <mat-icon>arrow_forward_ios</mat-icon>
-          <a [routerLink]="path" >{{ segment }}</a>
+          <a [routerLink]="path">{{ segment }}</a>
         </ng-container>
       </div>
 
-      <!-- Notification Dropdown -->
-      <div class="dropdown" style="margin-left: auto" *ngIf="auth.isAuthenticated()">
-        <button mat-fab color="primary"  type="button" id="notificationDropdown" data-bs-toggle="dropdown"
-                aria-expanded="false">
-
-          <mat-icon matBadge="15" matBadgeColor="warn">notifications_active</mat-icon>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-          <li><h6 class="dropdown-header">Notifications</h6></li>
-          <li>
-            <a class="dropdown-item" href="#">
-              <strong>Notification 1</strong><br>
-              <small>1 hour ago</small>
-            </a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">
-              <strong>Notification 2</strong><br>
-              <small>3 hours ago</small>
-            </a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">
-              <strong>Notification 3</strong><br>
-              <small>5 hours ago</small>
-            </a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><a class="dropdown-item" href="#">View all notifications</a></li>
-        </ul>
-      </div>
-
-      <button *ngIf="!auth.isAuthenticated()" style="margin-left: auto" [routerLink]="['/login']" mat-raised-button color="primary">
+      <button *ngIf="!auth.isAuthenticated()"
+              style="margin-left: auto"
+              [routerLink]="['/login']"
+              mat-raised-button color="primary">
         <mat-icon>login</mat-icon>
         Log IN
       </button>

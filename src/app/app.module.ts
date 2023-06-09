@@ -143,7 +143,8 @@ const appRoutes: Routes = [
 
   providers: [
     provideCloudinaryLoader('https://res.cloudinary.com/dwa1jwp8z/'),
-    {provide: 'BASE_URL', useFactory: () => "https://vhdk4wclsm2oamga6ynnstpvva0pzeyi.lambda-url.eu-north-1.on.aws/", deps: []},
+    //{provide: 'BASE_URL', useFactory: () => "https://vhdk4wclsm2oamga6ynnstpvva0pzeyi.lambda-url.eu-north-1.on.aws/", deps: []},
+    {provide: 'BASE_URL', useFactory: () => "https://localhost:7131", deps: []},
     {provide: HTTP_INTERCEPTORS, multi: true, useClass: TokenInterceptor},
     {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
   ],

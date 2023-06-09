@@ -7,10 +7,10 @@ export class GlobalErrorHandlerService implements ErrorHandler {
   constructor(
     private errorDialogService: SnackBarMessageService,
     private zone: NgZone
-  ) {}
+  ) {
+  }
 
-  handleError(error: any): void
-  {
+  handleError(error: any): void {
     console.error('Error from global error handler', error);
 
     if (!(error instanceof HttpErrorResponse)) {

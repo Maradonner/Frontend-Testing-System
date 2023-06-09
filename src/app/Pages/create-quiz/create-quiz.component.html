@@ -1,4 +1,4 @@
-<div class="container" style="max-width: 800px">
+<div class="container">
   <div class="row">
     <div class="col-md-6">
       <h1>Create Quiz</h1>
@@ -12,7 +12,6 @@
 
 
   <form [formGroup]="form">
-
     <div class="form-group">
       <label for="title">Quiz Title</label>
       <input type="text" class="form-control"
@@ -56,9 +55,7 @@
       </div>
     </div>
 
-
     <div class="form-row" style="display: flex">
-
       <div class="form-group col-md-4">
         <label for="questionTime">Question Time (seconds)</label>
         <input type="text" class="form-control"
@@ -71,7 +68,6 @@
           Please provide a Question Time.
         </div>
       </div>
-
       <div class="form-group col-md-4">
         <label for="questionTime">Lives Count</label>
         <input type="text" class="form-control"
@@ -84,26 +80,11 @@
           Please provide a Lives Count.
         </div>
       </div>
-
       <div class="form-group col-md-4">
-      <mat-checkbox formControlName="accumulateTime" class="example-margin">Accumulate Time?</mat-checkbox>
+      <mat-checkbox formControlName="accumulateTime"
+                    class="example-margin">Accumulate Time?</mat-checkbox>
       </div>
-
-      <!---
-      <div class="form-group">
-        <mat-form-field appearance="fill">
-          <mat-label>AccumulateTime</mat-label>
-          <input formControlName="accumulateTime" matInput placeholder="Placeholder">
-          <mat-error *ngIf="form.get('accumulateTime').hasError('required')">
-            AccumulateTime is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-      -->
-
     </div>
-
-
   </form>
 </div>
 
@@ -116,7 +97,6 @@
   </div>
 </div>
 
-<!-- notifications.component.html -->
 
 <div *ngFor="let notification of notifications">
   <div>
@@ -125,51 +105,6 @@
   </div>
 </div>
 
-
-<!---
-<form [formGroup]="form">
-  <label for="title111">Quiz Title</label>
-  <mat-form-field appearance="fill">
-    <input formControlName="pictureUrl" id="title111"
-           matInput>
-    <mat-error *ngIf="form.get('pictureUrl').hasError('required')">
-      tmpLink is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>tmpTitle</mat-label>
-    <input formControlName="title" matInput placeholder="Placeholder">
-    <mat-error *ngIf="form.get('title').hasError('required')">
-      tmpTitle is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>tmpQuestionTime</mat-label>
-    <input formControlName="questionTime" matInput placeholder="Placeholder">
-    <mat-error *ngIf="form.get('questionTime').hasError('required')">
-      tmpQuestionTime is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>tmpAccumulateTime</mat-label>
-    <input formControlName="accumulateTime" matInput placeholder="Placeholder">
-    <mat-error *ngIf="form.get('accumulateTime').hasError('required')">
-      tmpAccumulateTime is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>tmpLivesCount</mat-label>
-    <input formControlName="livesCount" matInput placeholder="Placeholder">
-    <mat-error *ngIf="form.get('livesCount').hasError('required')">
-      tmpLivesCount is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-</form>
---->
 
 
 <div class="container" style="width: 1600px">
@@ -181,12 +116,7 @@
           <mat-card-title>{{question.title}}</mat-card-title>
         </mat-card-header>
 
-        <!---
-        <img mat-card-image src="https://cdn.midjourney.com/021b629c-cf63-4021-acd8-bbe71081948b/grid_0.png"
-             alt="Photo of a Shiba Inu">
-             -->
         <img *ngIf="question.pictureUrl" mat-card-image src="{{question.pictureUrl}}">
-
         <mat-grid-list cols="2" rowHeight="120px">
 
           <ng-container *ngIf="question?.options.length % 2 === 0">
@@ -206,7 +136,6 @@
 
               <mat-grid-tile *ngIf="i < question?.options.length-1;"
                              [class.correct]="option.isCorrect"
-                             class="option"
                              [colspan]="1"
                              [rowspan]="1">
                 {{option.title}}
@@ -214,7 +143,6 @@
 
               <mat-grid-tile *ngIf="i === question?.options.length-1"
                              [class.correct]="option.isCorrect"
-                             class="toertertert"
                              [colspan]="2"
                              [rowspan]="1">
                 {{option.title}}
