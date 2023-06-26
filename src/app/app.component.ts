@@ -4,7 +4,7 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {filter, map} from "rxjs";
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {MatSidenavContainer} from "@angular/material/sidenav";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {BreakpointObserver} from "@angular/cdk/layout";
 
 
 export interface RouteInfo {
@@ -18,7 +18,7 @@ export interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
   {path: 'admin', title: 'Admin', icon: 'badge', class: ''},
   {path: 'account', title: 'My Account', icon: 'account_box', class: ''},
-  {path: 'create', title: 'Create', icon: 'create', class: ''},
+  {path: 'create/quiz', title: 'Create Quiz', icon: 'create', class: ''},
   {path: 'update', title: 'Update', icon: 'update', class: ''},
   {path: 'choose', title: 'Category', icon: 'quiz', class: ''},
 ];
