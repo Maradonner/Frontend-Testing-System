@@ -89,7 +89,8 @@ export class DialogService {
       .toPromise()
       .then(result => {
         if (result) {
-          this.router.navigate(['/choose'])
+          window.location.reload();
+          //this.router.navigate(['/choose'])
           return Promise.resolve(result);
         }
         this.router.navigate(['/choose'])
